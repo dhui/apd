@@ -85,7 +85,7 @@ func NumDigits(b *big.Int) int64 {
 
 	n := int64(float64(bl) / digitsToBitsRatio)
 	a := new(big.Int)
-	e := tableExp10(n, a)
+	e := Exp10(n, a)
 	if b.Sign() < 0 {
 		a.Abs(b)
 	} else {
@@ -119,10 +119,10 @@ func setBigWithPow(bi *big.Int, tmpInt *big.Int, pow int64) {
 	bi.Exp(bigTen, tmpInt.SetInt64(pow), nil)
 }
 
-// tableExp10 returns 10^x for x >= 0, looked up from a table when
+// Exp10 returns 10^x for x >= 0, looked up from a table when
 // possible. This returned value must not be mutated. tmp is used as an
 // intermediate variable, but may be nil.
-func tableExp10(x int64, tmp *big.Int) *big.Int {
+func Exp10(x int64, tmp *big.Int) *big.Int {
 	if x <= powerTenTableSize {
 		return &pow10LookupTable[x]
 	}

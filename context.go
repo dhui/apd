@@ -1181,7 +1181,7 @@ func (c *Context) quantize(d, v *Decimal, exp int32) Condition {
 		if diff < MinExponent {
 			return SystemUnderflow | Underflow
 		}
-		d.Coeff.Mul(&d.Coeff, tableExp10(-int64(diff), nil))
+		d.Coeff.Mul(&d.Coeff, Exp10(-int64(diff), nil))
 	} else if diff > 0 {
 		p := int32(d.NumDigits()) - diff
 		if p < 0 {
@@ -1292,5 +1292,5 @@ func exp10(x int64) (exp *big.Int, err error) {
 	if x > MaxExponent || x < MinExponent {
 		return nil, errors.New(errExponentOutOfRangeStr)
 	}
-	return tableExp10(x, nil), nil
+	return Exp10(x, nil), nil
 }

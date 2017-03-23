@@ -159,7 +159,7 @@ func TestTableExp10(t *testing.T) {
 	}
 
 	for i, test := range tests {
-		d := tableExp10(test.pow, nil)
+		d := Exp10(test.pow, nil)
 		if s := d.String(); s != test.str {
 			t.Errorf("%d: expected PowerOfTenDec(%d) to give %s, got %s", i, test.pow, test.str, s)
 		}

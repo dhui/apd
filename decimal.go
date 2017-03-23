@@ -451,7 +451,7 @@ func upscale(a, b *Decimal) (*big.Int, *big.Int, int32, error) {
 		return nil, nil, 0, errors.New(errExponentOutOfRangeStr)
 	}
 	x := new(big.Int)
-	e := tableExp10(s, x)
+	e := Exp10(s, x)
 	x.Mul(&a.Coeff, e)
 	y := &b.Coeff
 	if swapped {
@@ -625,7 +625,7 @@ func (d *Decimal) Cmp(x *Decimal) int {
 	if diff < 0 {
 		diff = -diff
 	}
-	e := tableExp10(diff, nil)
+	e := Exp10(diff, nil)
 	db := d.setBig(new(big.Int))
 	xb := x.setBig(new(big.Int))
 	if d.Exponent > x.Exponent {
@@ -688,7 +688,7 @@ func (d *Decimal) Modf(integ, frac *Decimal) {
 		return
 	}
 
-	e := tableExp10(exp, nil)
+	e := Exp10(exp, nil)
 	integ.Coeff.QuoRem(&d.Coeff, e, &frac.Coeff)
 	integ.Exponent = 0
 	frac.Exponent = d.Exponent
